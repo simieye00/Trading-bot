@@ -1,0 +1,26 @@
+# Trading Bot Configuration
+
+# General bot settings
+cycle_duration_seconds: 60   # 60 = 1-minute cycle, 300 = 5-minute cycle
+
+# Risk management
+risk:
+  max_position_size_pct: 5.0   # Maximum % of portfolio per trade
+  stop_loss_pct: 1.0           # Stop-loss percentage below entry price
+  take_profit_pct: 2.0         # Take-profit percentage above entry price
+
+# Indicator parameters
+indicators:
+  ema_period: 20               # EMA period for trend direction filter
+  macd_fast: 12                # MACD fast EMA period
+  macd_slow: 26                # MACD slow EMA period
+  macd_signal: 9               # MACD signal line period
+  rsi_period: 14               # RSI calculation period
+  rsi_overbought: 70           # RSI level considered overbought
+  rsi_oversold: 30             # RSI level considered oversold
+  bollinger_period: 20         # Bollinger Bands SMA period
+  bollinger_std_dev: 2.0       # Bollinger Bands standard deviation multiplier
+
+# Strategy preset selection
+# Options: "trend_following", "momentum", "candlestick", "combined"
+active_strategy: "combined"
