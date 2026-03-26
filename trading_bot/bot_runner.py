@@ -8,6 +8,26 @@ import pandas as pd
 
 from trading_bot.strategies.base_strategy import BaseStrategy, Signal
 
+# Icons shown next to each trading signal in the output
+SIGNAL_ICONS: dict[Signal, str] = {
+    "BUY": "📈",
+    "SELL": "📉",
+    "HOLD": "⏸",
+}
+
+
+def format_signal(signal: Signal) -> str:
+    """Return the signal string decorated with its icon.
+
+    Args:
+        signal: One of ``"BUY"``, ``"SELL"``, or ``"HOLD"``.
+
+    Returns:
+        A string of the form ``"<icon> <SIGNAL>"``, e.g. ``"📈 BUY"``.
+    """
+    icon = SIGNAL_ICONS.get(signal, "")
+    return f"{icon} {signal}" if icon else signal
+
 
 class BotState(Enum):
     """Lifecycle states of the trading bot."""

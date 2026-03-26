@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pandas as pd
 
-from trading_bot.bot_runner import BotRunner, BotState
+from trading_bot.bot_runner import BotRunner, BotState, format_signal
 from trading_bot.strategies import STRATEGY_PRESETS
 from trading_bot.strategies.base_strategy import BaseStrategy
 
@@ -96,7 +96,7 @@ def run(df: pd.DataFrame | None = None) -> None:
 
     signal = runner.start(df)
     print(f">>> State: {runner.state}")
-    print(f">>> Signal: {signal}")
+    print(f">>> Signal: {format_signal(signal)}")
 
     runner.stop()
     print(f"\n{STOP_ICON}  Bot stopped.  State: {runner.state}")

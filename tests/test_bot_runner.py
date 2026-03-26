@@ -4,7 +4,7 @@ import pytest
 import numpy as np
 import pandas as pd
 
-from trading_bot.bot_runner import BotRunner, BotState
+from trading_bot.bot_runner import BotRunner, BotState, SIGNAL_ICONS, format_signal
 from trading_bot.strategies.trend_following import TrendFollowingStrategy
 from trading_bot.strategies.momentum import MomentumStrategy
 
@@ -28,6 +28,42 @@ def sample_df() -> pd.DataFrame:
 @pytest.fixture
 def runner(sample_df) -> BotRunner:
     return BotRunner(TrendFollowingStrategy())
+
+
+# ---------------------------------------------------------------------------
+# Signal icons and format_signal
+# ---------------------------------------------------------------------------
+
+class TestSignalIcons:
+    def test_all_signals_have_icons(self):
+        for signal in ("BUY", "SELL", "HOLD"):
+            assert signal in SIGNAL_ICONS
+            assert SIGNAL_ICONS[signal]  # non-empty
+
+    def test_buy_icon(self):
+        assert SIGNAL_ICONS["BUY"] == "📈"
+
+    def test_sell_icon(self):
+        assert SIGNAL_ICONS["SELL"] == "📉"
+
+    def test_hold_icon(self):
+        assert SIGNAL_ICONS["HOLD"] == "⏸"
+
+    def test_format_signal_buy(self):
+        result = format_signal("BUY")
+        assert "📈" in result and "BUY" in result
+
+    def test_format_signal_sell(self):
+        result = format_signal("SELL")
+        assert "📉" in result and "SELL" in result
+
+    def test_format_signal_hold(self):
+        result = format_signal("HOLD")
+        assert "⏸" in result and "HOLD" in result
+
+    def test_format_signal_icon_precedes_text(self):
+        result = format_signal("BUY")
+        assert result.index("📈") < result.index("BUY")
 
 
 # ---------------------------------------------------------------------------
